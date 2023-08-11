@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artificial Horizon Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container_horizon">
+
+
+    <button id="toggleButton">Toggle Automatic Movement</button>
+
+    <canvas id="horizonCanvas"></canvas>
+
+    <div class="controls">
+      <label for="pitchSlider">Pitch Angle:</label>
+      <input type="range" id="pitchSlider" min="-20" max="20" value="0">
+      <span id="pitchValue">0°</span>
+      <br>
+      <label for="rollSlider">Roll Angle:</label>
+      <input type="range" id="rollSlider" min="-20" max="20" value="0">                                                                   
+      <span id="rollValue">0°</span>
+  </div>
+
+  </div>
+  
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    position: relative;
+}
+
+#altimeterCanvas {
+    border: 1px solid #000;
+}
+
+#altitudeSlider {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#sliderValue {
+    text-align: center;
+    margin-top: 5px;
+}
+
+#toggleButton {
+    margin-top: 10px;
+}

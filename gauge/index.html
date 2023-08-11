@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aircraft Speedometer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .speedometer {
+            width: 300px;
+            height: 300px;
+            background-color: #333;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+        .scale {
+            width: 10px;
+            height: 100%;
+            background-color: #fff;
+            position: absolute;
+            transform-origin: center;
+            transform: rotate(-45deg);
+        }
+        .scale-marker {
+            width: 20px;
+            height: 2px;
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            transform-origin: right;
+            transform: translate(-50%, -50%);
+        }
+        .value {
+            font-size: 24px;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .led-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+        .led {
+            width: 10px;
+            height: 10px;
+            background-color: #ff3333;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="speedometer">
+        <div class="scale">
+            <div class="scale-marker" style="left: 10%;"></div>
+            <div class="scale-marker" style="left: 30%;"></div>
+            <div class="scale-marker" style="left: 50%;"></div>
+            <div class="scale-marker" style="left: 70%;"></div>
+            <div class="scale-marker" style="left: 90%;"></div>
+        </div>
+        <div class="led-container">
+            <div class="led led-0"></div>
+            <div class="led led-1"></div>
+            <div class="led led-2"></div>
+            <div class="led led-3"></div>
+            <div class="led led-4"></div>
+        </div>
+        <div class="value" id="speedValue">0 knots</div>
+    </div>
+
+    <script>
+        let currentSpeed = 0;
+
+        function updateSpeedometer() {
+            const speedValue = document.getElementById('speedValue');
+            const leds = document.querySelectorAll('.led');
+
+            speedValue.textContent = `${currentSpeed} knots`;
+
+            leds.forEach((led, index) => {
+                led.style.transform = index <= Math.floor(currentSpeed / 20) ? 'scale(1.5)' : 'scale(1)';
+            });
+        }
+
+        // Increase speed on key press
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp') {
+                currentSpeed += 10; // Adjust increment as needed
+                if (currentSpeed > 100) currentSpeed = 100;
+                updateSpeedometer();
+            }
+        });
+
+        // Update the initial speed display
+        updateSpeedometer();
+    </script>
+</body>
+</html>

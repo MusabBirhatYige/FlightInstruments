@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviation Simulations</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(to bottom, #3880d6, #1b5481);
+            font-family: Arial, sans-serif;
+        }
+        .iframe-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .iframe-option {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s;
+        }
+        .iframe-option input[type="radio"] {
+            display: none;
+        }
+        .iframe-option label {
+            margin: 0;
+            cursor: pointer;
+        }
+        .iframe-option:hover {
+            background-color: #ddd;
+        }
+        iframe {
+            border: 1px solid #ccc;
+            width: 320px;
+            height: 450px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="iframe-container">
+        <div class="iframe-option">
+            <input type="radio" name="iframeSelection" id="horizonRadio" value="horizon" onchange="showIframe(this.value)">
+            <label for="horizonRadio">Artificial Horizon</label>
+        </div>
+        <div class="iframe-option">
+            <input type="radio" name="iframeSelection" id="altimeterRadio" value="altimeter" onchange="showIframe(this.value)">
+            <label for="altimeterRadio">Altimeter</label>
+        </div>
+        <div class="iframe-option">
+            <input type="radio" name="iframeSelection" id="compassRadio" value="compass" onchange="showIframe(this.value)">
+            <label for="compassRadio">Compass</label>
+        </div>
+        <div class="iframe-option">
+            <input type="radio" name="iframeSelection" id="airspeedRadio" value="airspeed" onchange="showIframe(this.value)">
+            <label for="airspeedRadio">Airspeed Indicator</label>
+        </div>
+        <iframe id="horizonFrame" src="artificial_horizon/index.html" frameborder="0"></iframe>
+        <iframe id="altimeterFrame" src="Altimeter/index.html" frameborder="0"></iframe>
+        <iframe id="compassFrame" src="compass/index.html" frameborder="0"></iframe>
+        <iframe id="airspeedFrame" src="airspeed_indicator/index.html" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        function showIframe(selectedIframe) {
+            const horizonFrame = document.getElementById("horizonFrame");
+            const altimeterFrame = document.getElementById("altimeterFrame");
+            const compassFrame = document.getElementById("compassFrame");
+            const airspeedFrame = document.getElementById("airspeedFrame");
+
+            if (selectedIframe === "horizon") {
+                horizonFrame.style.display = "block";
+                altimeterFrame.style.display = "none";
+                compassFrame.style.display = "none";
+                airspeedFrame.style.display = "none";
+            } else if (selectedIframe === "altimeter") {
+                horizonFrame.style.display = "none";
+                altimeterFrame.style.display = "block";
+                compassFrame.style.display = "none";
+                airspeedFrame.style.display = "none";
+            } else if (selectedIframe === "compass") {
+                horizonFrame.style.display = "none";
+                altimeterFrame.style.display = "none";
+                compassFrame.style.display = "block";
+                airspeedFrame.style.display = "none";
+            } else if (selectedIframe === "airspeed") {
+                horizonFrame.style.display = "none";
+                altimeterFrame.style.display = "none";
+                compassFrame.style.display = "none";
+                airspeedFrame.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

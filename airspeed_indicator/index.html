@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aircraft Speedometer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .instructions {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .speedometer {
+            width: 400px;
+            height: 200px;
+            background-color: #333;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .indicator {
+            width: 4px;
+            height: 80px;
+            background-color: red;
+            transform-origin: bottom center;
+            position: absolute;
+            bottom: 10%; /* Adjust position as needed */
+            left: 50%; /* Start in the middle */
+            transition: transform 0.5s ease;
+            z-index: 1;
+        }
+        .dial {
+            width: 80%;
+            height: 80%;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: conic-gradient(white 0deg 25deg, transparent 25deg 335deg, white 335deg 360deg);
+            z-index: 0;
+        }
+        .value {
+            font-size: 24px;
+            color: white;
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        Uçağın hızını ayarlamak için üst ve alt yön tuşlarını kullanın.
+    </div>
+    <div class="speedometer">
+        <div class="dial">
+            <div class="indicator" id="indicator"></div>
+        </div>
+        <div class="value" id="speedValue">0 knots</div>
+    </div>
+
+    <script>
+        let currentSpeed = 0;
+
+        function updateSpeedometer() {
+            const indicator = document.getElementById('indicator');
+            const speedValue = document.getElementById('speedValue');
+            const rotation = ((currentSpeed / 100) * 180) - 90; // Adjust as needed
+
+            // Limit the rotation to stay within the visible range
+            const limitedRotation = Math.min(Math.max(rotation, -90), 90);
+            
+            indicator.style.transform = `translateX(-50%) translateY(0) rotate(${limitedRotation}deg)`;
+            speedValue.textContent = `${currentSpeed} knots`;
+        }
+
+        // Increase speed on key press
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp') {
+                currentSpeed += 10; // Adjust increment as needed
+                if (currentSpeed > 100) currentSpeed = 100;
+                updateSpeedometer();
+            } else if (event.key === 'ArrowDown') {
+                currentSpeed -= 10; // Adjust decrement as needed
+                if (currentSpeed < 0) currentSpeed = 0;
+                updateSpeedometer();
+            }
+        });
+
+        // Update the initial speed display
+        updateSpeedometer();
+    </script>
+</body>
+</html>
