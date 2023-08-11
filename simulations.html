@@ -52,58 +52,46 @@
         }
     </style>
 </head>
+
 <body>
     <div class="iframe-container">
-        <div class="iframe-option">
-            <input type="radio" name="iframeSelection" id="horizonRadio" value="horizon" onchange="showIframe(this.value)">
-            <label for="horizonRadio">Artificial Horizon</label>
+        <div class="iframe-option" onclick="showIframe('horizonFrame')">
+            <label>Artificial Horizon</label>
         </div>
-        <div class="iframe-option">
-            <input type="radio" name="iframeSelection" id="altimeterRadio" value="altimeter" onchange="showIframe(this.value)">
-            <label for="altimeterRadio">Altimeter</label>
+        <div class="iframe-option" onclick="showIframe('altimeterFrame')">
+            <label>Altimeter</label>
         </div>
-        <div class="iframe-option">
-            <input type="radio" name="iframeSelection" id="compassRadio" value="compass" onchange="showIframe(this.value)">
-            <label for="compassRadio">Compass</label>
+        <div class="iframe-option" onclick="showIframe('compassFrame')">
+            <label>Compass</label>
         </div>
-        <div class="iframe-option">
-            <input type="radio" name="iframeSelection" id="airspeedRadio" value="airspeed" onchange="showIframe(this.value)">
-            <label for="airspeedRadio">Airspeed Indicator</label>
+        <div class="iframe-option" onclick="showIframe('airspeedFrame')">
+            <label>Airspeed Indicator</label>
         </div>
-        <iframe id="horizonFrame" src="artificial_horizon/index.html" frameborder="0"></iframe>
-        <iframe id="altimeterFrame" src="Altimeter/index.html" frameborder="0"></iframe>
-        <iframe id="compassFrame" src="compass/index.html" frameborder="0"></iframe>
-        <iframe id="airspeedFrame" src="airspeed_indicator/index.html" frameborder="0"></iframe>
+        <div class="iframe-option" onclick="showIframe('weatherRadarFrame')">
+            <label>Weather Radar</label>
+        </div>
+
+        <div class="iframe-card">
+            <iframe id="horizonFrame" src="artificial_horizon/index.html" frameborder="0"></iframe>
+            <iframe id="altimeterFrame" src="Altimeter/index.html" frameborder="0"></iframe>
+            <iframe id="compassFrame" src="compass/index.html" frameborder="0"></iframe>
+            <iframe id="airspeedFrame" src="airspeed_indicator/index.html" frameborder="0"></iframe>
+            <iframe id="weatherRadarFrame" src="weather_radar/index.html" frameborder="0"></iframe>
+        </div>
     </div>
 
     <script>
-        function showIframe(selectedIframe) {
-            const horizonFrame = document.getElementById("horizonFrame");
-            const altimeterFrame = document.getElementById("altimeterFrame");
-            const compassFrame = document.getElementById("compassFrame");
-            const airspeedFrame = document.getElementById("airspeedFrame");
+        function showIframe(selectedIframeId) {
+            const iframeCard = document.querySelector('.iframe-card');
+            const iframes = iframeCard.querySelectorAll('iframe');
 
-            if (selectedIframe === "horizon") {
-                horizonFrame.style.display = "block";
-                altimeterFrame.style.display = "none";
-                compassFrame.style.display = "none";
-                airspeedFrame.style.display = "none";
-            } else if (selectedIframe === "altimeter") {
-                horizonFrame.style.display = "none";
-                altimeterFrame.style.display = "block";
-                compassFrame.style.display = "none";
-                airspeedFrame.style.display = "none";
-            } else if (selectedIframe === "compass") {
-                horizonFrame.style.display = "none";
-                altimeterFrame.style.display = "none";
-                compassFrame.style.display = "block";
-                airspeedFrame.style.display = "none";
-            } else if (selectedIframe === "airspeed") {
-                horizonFrame.style.display = "none";
-                altimeterFrame.style.display = "none";
-                compassFrame.style.display = "none";
-                airspeedFrame.style.display = "block";
-            }
+            iframes.forEach(iframe => {
+                if (iframe.id === selectedIframeId) {
+                    iframe.style.display = 'block';
+                } else {
+                    iframe.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>

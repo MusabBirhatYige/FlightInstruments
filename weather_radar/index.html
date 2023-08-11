@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .map-container {
+            width: 600px;
+            height: 600px;
+            position: relative;
+            margin-top: 20px;
+        }
+        .weather-button {
+            display: block;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+    <title>Weather Radar Simulation</title>
+</head>
+<body>
+    <h1>Hava Durumuna Erişmek için haritada bir noktaya tıklayın</h1>
+    <div class="map-container">
+        <div id="map" style="width: 100%; height: 100%;"></div>
+    </div>
+    <button class="weather-button">Weather</button>
+    <div class="weather-description"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
