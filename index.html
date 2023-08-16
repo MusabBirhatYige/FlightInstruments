@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Avionics Simulations</title>
+
+    <style>
+    
+
+.slideshow {
+    position: relative;
+    overflow: hidden;
+    margin: 40px 0;
+}
+
+.slideshow-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slideshow-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    display: none;
+}
+
+.slideshow-slide.active {
+    display: block;
+}
+
+.slideshow img {
+    width: 100%;
+    height: auto;
+}
+
+.slideshow-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.slideshow-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #2980b9;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+        /* Reset some default styling */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #050720;
+    color: #ffffff;
+}
+
+header {
+    background-color: #0e1227;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+section.hero {
+    text-align: center;
+    padding: 100px 0;
+}
+
+section.hero h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+section.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #2196F3;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #1473e6;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #0e1227;
+}
+.gallery {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.gallery h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.image-container a {
+    display: block;
+    text-decoration: none;
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+
+    </style>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="simulations.html">Simulations</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero">
+        <h1>Welcome to Avionics Simulations</h1>
+        <p>Explore and simulate the exciting world of avionics systems in space.</p>
+        <a href="simulations.html" class="btn">Get Started</a>
+
+        <!-- Inside your existing HTML file -->
+
+<section class="slideshow">
+    <div class="slideshow-container">
+        <div class="slideshow-slide active">
+            <img src="images/image1-thumb.jpg" alt="Slide 1">
+        </div>
+        <div class="slideshow-slide">
+            <img src="images/image2-thumb.jpg" alt="Slide 2">
+        </div>
+        <!-- Add more slides here -->
+    </div>
+    <button id="slideshow-prev" class="slideshow-button prev">&lt;</button>
+    <button id="slideshow-next" class="slideshow-button next">&gt;</button>
+</section>
+
+        
+    </section>
+    <footer>
+        <p>&copy; 2023 Avionics Simulations. All rights reserved.</p>
+    </footer>
+  <script>
+
+    // image-slideshow.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.slideshow-slide');
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            if (i === index) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(currentIndex);
+    }
+
+    const nextButton = document.querySelector('#slideshow-next');
+    const prevButton = document.querySelector('#slideshow-prev');
+
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
+
+    showSlide(currentIndex);
+});
+
+  </script>
+    
+    
+
+<div id="back-to-top" class="back-to-top">
+    <span>&uarr;</span>
+</div>
+
+<script>
+    // back-to-top.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopButton = document.querySelector('#back-to-top');
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
+
+</script>
+
+</body>
+</html>

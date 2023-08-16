@@ -21,7 +21,7 @@ map.on('click', async (e) => {
 
 async function fetchWeatherData(lat, lon) {
     const apiKey = 'd5cb8c704d7c2051f2852fbfee6a2982';
-    
+    const lang = 'tr'; // Turkish language code
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=${lang}`;
 
     try {

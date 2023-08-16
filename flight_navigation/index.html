@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Navigation Simulation</title>
+    <link rel="stylesheet" href="leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        #map {
+            width: 400px;
+            height: 400px;
+        }
+        
+        #start-button {
+            margin-top: 20px;
+        }
+        
+        #flight-data {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <button id="start-button">Start Automatic Movement</button>
+    
+    <div id="flight-data">
+        <p>Latitude: <span id="latitude">0</span></p>
+        <p>Longitude: <span id="longitude">0</span></p>
+        <p>Altitude: <span id="altitude">0</span> feet</p>
+        <p>Heading: <span id="heading">0</span> degrees</p>
+        <p>Speed: <span id="speed">0</span> knots</p>
+    </div>
+    
+    <script src="leaflet.js"></script>
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([37.7749, -122.4194], 10);
+
+        // Load a tile layer from OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Create an aircraft icon
+        const aircraftIcon = L.icon({
+            iconUrl: 'aircraft.png',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15],
+            popupAnchor: [0, 0]
+        });
+
+        // Add an aircraft marker to the map
+        const aircraftMarker = L.marker([37.7749, -122.4194], { icon: aircraftIcon });
+
+        let latitude = 37.7749; // Starting latitude (San Francisco)
+        let longitude = -122.4194; // Starting longitude (San Francisco)
+        let altitude = 0; // Starting altitude in feet
+        let heading = 45; // Starting heading in degrees
+        let speed = 500; // Starting speed in knots
+
+        let movementInterval;
+
+        document.getElementById('start-button').addEventListener('click', () => {
+            if (!movementInterval) {
+                movementInterval = setInterval(updateAircraftPosition, 1000 / 30);
+                aircraftMarker.addTo(map);
+            }
+        });
+
+        function updateAircraftPosition() {
+            const timeInterval = 1000 / 30; // Update every 30 frames per second
+
+            // Convert speed in knots to distance in nautical miles
+            const distance = (speed * timeInterval) / 3600;
+
+            // Calculate new latitude and longitude using simple calculations
+            const latDistance = distance * Math.cos(heading * (Math.PI / 180));
+            const lonDistance = distance * Math.sin(heading * (Math.PI / 180));
+
+            latitude += (latDistance / 60); // Latitude change per minute
+            longitude += (lonDistance / (60 * Math.cos(latitude * (Math.PI / 180)))); // Longitude change per minute
+
+            // Normalize longitude to -180 to 180 range
+            longitude = ((longitude + 180) % 360) - 180;
+
+            // Update aircraft marker position
+            aircraftMarker.setLatLng([latitude, longitude]);
+
+            // Update altitude
+            altitude += (speed * 0.514444) * (timeInterval / 1000); // Convert knots to meters per second
+
+            // Update flight data display
+            updateFlightData();
+        }
+
+        function updateFlightData() {
+            document.getElementById('latitude').textContent = latitude.toFixed(6);
+            document.getElementById('longitude').textContent = longitude.toFixed(6);
+            document.getElementById('altitude').textContent = altitude.toFixed(0);
+            document.getElementById('heading').textContent = heading.toFixed(1);
+            document.getElementById('speed').textContent = speed.toFixed(1);
+        }
+    </script>
+</body>
+</html>

@@ -5,25 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aviation Simulations</title>
     <style>
+        /* Reset some default styling */
+        body, h1, h2, h3, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Basic styling */
         body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #3880d6, #1b5481);
+            color: #ffffff;
+            
+        }
+
+        header {
+            background-color: #0e1227;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(to bottom, #3880d6, #1b5481);
-            font-family: Arial, sans-serif;
         }
+
+        nav li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
         .iframe-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.5);
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
         }
+
         .iframe-option {
             display: inline-flex;
             align-items: center;
@@ -34,27 +61,77 @@
             background-color: #f0f0f0;
             transition: background-color 0.3s;
         }
-        .iframe-option input[type="radio"] {
-            display: none;
-        }
+
         .iframe-option label {
             margin: 0;
             cursor: pointer;
         }
+
         .iframe-option:hover {
             background-color: #ddd;
         }
+
         iframe {
-            border: 1px solid #ccc;
+            border: 1px solid #091dd5;
             width: 320px;
             height: 450px;
             display: none;
         }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #0e1227;
+        }
+        
+
+.dark-mode {
+    background: #020308;
+    color: #ffffff;
+}
+
+.dark-mode header {
+    background-color: #0e1227;
+}
+
+.dark-mode nav a {
+    color: #ffffff;
+}
+
+/* Dark mode toggle button style */
+#dark-mode-toggle {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#dark-mode-toggle:hover {
+    color: #f0f0f0;
+}
+
     </style>
 </head>
 
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="simulations.html">Simulations</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#" id="dark-mode-toggle">Dark Mode</a></li>
+            </ul>
+        </nav>
+       
+    </header>
+
     <div class="iframe-container">
+        <div class="iframe-option" onclick="showIframe('flightNavigationFrame')">
+            <label>Flight Navigation</label>
+        </div>
         <div class="iframe-option" onclick="showIframe('horizonFrame')">
             <label>Artificial Horizon</label>
         </div>
@@ -72,6 +149,7 @@
         </div>
 
         <div class="iframe-card">
+            <iframe id="flightNavigationFrame" src="flight_navigation/index.html" frameborder="0"></iframe>
             <iframe id="horizonFrame" src="artificial_horizon/index.html" frameborder="0"></iframe>
             <iframe id="altimeterFrame" src="Altimeter/index.html" frameborder="0"></iframe>
             <iframe id="compassFrame" src="compass/index.html" frameborder="0"></iframe>
@@ -94,5 +172,17 @@
             });
         }
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const darkModeToggle = document.querySelector('#dark-mode-toggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+        });
+    });
+</script>
+
 </body>
 </html>
